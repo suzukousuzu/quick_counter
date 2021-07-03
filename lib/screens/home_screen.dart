@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                         onPress: () {
                           model.selectNumber();
                         },
-                        text: '1-30',
+                        text: ' 1-30',
                         width: model.selectedCard == Select.numberSelected
                             ? kActiveBorderWidth
                             : kInActiveBorderWidth,
