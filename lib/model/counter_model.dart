@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:quick_counter/model/select_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class CounterModel extends ChangeNotifier {
+  final _firestore = FirebaseFirestore.instance;
   String topText;
   bool isEnd = false;
   bool isComplete = false;
@@ -11,9 +15,9 @@ class CounterModel extends ChangeNotifier {
   var swatch = Stopwatch();
 
   void updateCurrentNumber(int testText) {
-    if (topText == testText.toString() && topText != "30") {
+    if (topText == testText.toString() && topText != "3") {
       topText = (testText + 1).toString();
-    } else if (topText == testText.toString() && topText == "30") {
+    } else if (topText == testText.toString() && topText == "3") {
       isComplete = true;
       isPushed = false;
     } else {
@@ -171,5 +175,25 @@ class CounterModel extends ChangeNotifier {
   void stopTimer()  {
     swatch.stop();
     notifyListeners();
+  }
+
+  Future addScore(String nickName, Select select) async {
+    if (select == Select.numberSelected) {
+      await FirebaseFirestore.instance
+          .collection('number')
+          .add({'name': nickName, 'time': timeDisplay});
+      notifyListeners();
+    } else if (select == Select.uppercaseSelected) {
+      await FirebaseFirestore.instance
+          .collection('UpperCase')
+          .add({'name': nickName, 'time': timeDisplay});
+      notifyListeners();
+    } else if (select == Select.childSelected) {
+      await FirebaseFirestore.instance
+          .collection('child')
+          .add({'name': nickName, 'time': timeDisplay});
+      notifyListeners();
+    }
+
   }
 }

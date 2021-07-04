@@ -118,4 +118,72 @@ class SelectData extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  void fetchScore() {
+    Stream<QuerySnapshot> number;
+    Stream<QuerySnapshot> upperCase;
+    Stream<QuerySnapshot> child;
+    number = _firestore
+        .collection('number')
+        .orderBy('time', descending: true)
+        .snapshots();
+
+    number.listen((snapshot) {
+
+      TopclearTimeNumber = "00.00";
+      final docs = snapshot.docs;
+      for (var scores in docs) {
+        final nickName = scores.data()['name'];
+        if (this.nickName == nickName) {
+          double kclearTimeNumber = double.parse(scores.data()['time']);
+          if (kclearTimeNumber > double.parse(TopclearTimeNumber)) {
+            TopclearTimeNumber = kclearTimeNumber.toString();
+
+          }
+        }
+      }
+      notifyListeners();
+    });
+
+    upperCase = _firestore
+        .collection('UpperCase')
+        .orderBy('time', descending: true)
+        .snapshots();
+
+    upperCase.listen((snapshot) {
+      TopclearTimeUppercase = "00.00";
+      final docs = snapshot.docs;
+      for (var scores in docs) {
+        final nickName = scores.data()['name'];
+        if (this.nickName == nickName) {
+          double kTopclearTimeUppercase = double.parse(scores.data()['time']);
+          if (kTopclearTimeUppercase > double.parse(TopclearTimeUppercase)) {
+            TopclearTimeUppercase = kTopclearTimeUppercase.toString();
+          }
+        }
+      }
+      notifyListeners();
+    });
+
+    child = _firestore
+        .collection('child')
+        .orderBy('time', descending: true)
+        .snapshots();
+
+    child.listen((snapshot) {
+      TopclearTimeChild = "00.00";
+      final docs = snapshot.docs;
+      for (var scores in docs) {
+        final nickName = scores.data()['name'];
+        if (this.nickName == nickName) {
+          double kTopclearTimeChild = double.parse(scores.data()['time']);
+          if (kTopclearTimeChild > double.parse(TopclearTimeChild)) {
+            TopclearTimeChild = kTopclearTimeChild.toString();
+          }
+
+        }
+      }
+      notifyListeners();
+    });
+  }
 }

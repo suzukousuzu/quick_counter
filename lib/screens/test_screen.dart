@@ -12,9 +12,10 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class TestScreen extends StatelessWidget {
-  TestScreen({this.selectedCard});
+  TestScreen({this.selectedCard,this.nickName});
 
   final Select selectedCard;
+  final String nickName;
   List randomList;
 
   String topText;
@@ -84,6 +85,7 @@ class TestScreen extends StatelessWidget {
                           model.stopTimer();
                           if (model.isComplete) {
                             Navigator.pop(context, model.timeDisplay);
+                            model.addScore(nickName,selectedCard);
                             return Future.value(false);
                           } else {
                             Navigator.pop(context);

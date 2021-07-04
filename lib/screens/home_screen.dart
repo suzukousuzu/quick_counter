@@ -48,6 +48,7 @@ class HomeScreen extends StatelessWidget {
                     controller: TextEditingController(text: model.nickName),
                     onChanged: (value) {
                       nickName = value;
+                      model.nickName = value;
                       model.setName(nickName);
                     },
                     textAlign: TextAlign.center,
@@ -119,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                TestScreen(selectedCard: model.selectedCard)));
+                                TestScreen(selectedCard: model.selectedCard,nickName:  model.nickName,)));
                     model.updateResult(result);
                   },
                   text: 'PLAY!',
