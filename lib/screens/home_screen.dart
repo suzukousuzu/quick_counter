@@ -29,7 +29,11 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //問題パターン表示部分
-               TestPatern(clearSecondNumber: model.TopclearTimeNumber, clearSecondUpperCase: model.TopclearTimeUppercase,clearSecondChild: model.TopclearTimeChild,),
+                TestPatern(
+                  clearSecondNumber: model.TopclearTimeNumber,
+                  clearSecondUpperCase: model.TopclearTimeUppercase,
+                  clearSecondChild: model.TopclearTimeChild,
+                ),
                 Center(
                   child: Text(
                     'Quick',
@@ -61,7 +65,6 @@ class HomeScreen extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
-
                   ),
                 ),
                 Row(
@@ -69,7 +72,6 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SelectedCard(
-
                         onPress: () {
                           model.selectNumber();
                         },
@@ -117,7 +119,148 @@ class HomeScreen extends StatelessWidget {
                   },
                   text: 'PLAY!',
                   width: kInActiveBorderWidth,
-                )
+                ),
+                SizedBox(
+                  height: 70.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "SOUND EFFECT:",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "----------",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "Font:",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "SourceSansPro",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "Pacifico",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "CON:",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "KOTA",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "BACKGROUND:",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "BLACKHOLE",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "SPECIAL THANKS:",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "KOTA SUZUKI",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              )),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: Text(
+                                "(c)2019 KotaSuzuki Inc.",
+                                textAlign: TextAlign.left,
+                                style: leadersBoardText,
+                              ))
+                        ],
+                      ),
+                    ),
+                    model.scoreBubbles == null
+                        ? Container()
+                        : ConstrainedBox(
+                            constraints: BoxConstraints.expand(
+                                height: 180.0, width: 200.0),
+                            child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF1D1E33),
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(children: [
+                                Container(
+                                  width: double.infinity,
+                                  child: Text(
+                                    "LeaderBoard",
+                                    textAlign: TextAlign.left,
+                                    style: leaderBoardTitle,
+                                  ),
+                                ),
+                                ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: model.scoreBubbles,
+                                )
+                              ]),
+                            ),
+                          ),
+                  ],
+                ),
               ],
             );
           }),

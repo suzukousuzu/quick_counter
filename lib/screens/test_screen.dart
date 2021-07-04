@@ -77,11 +77,10 @@ class TestScreen extends StatelessWidget {
                     children: [
                       Text(
                         model.timeDisplay,
-                        style: kTextStyle,
+                        style: kTestTextStyle,
                       ),
                       SelectedCard(
                         onPress: () {
-                          //TODO QUIT押下時にタイマーを止める処理
                           model.stopTimer();
                           if (model.isComplete) {
                             Navigator.pop(context, model.timeDisplay);

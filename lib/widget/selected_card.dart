@@ -22,7 +22,7 @@ class SelectedCard extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: kTextStyle,
+              style: kTestTextStyle,
             ),
           )),
     );
