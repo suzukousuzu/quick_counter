@@ -33,10 +33,10 @@ class HomeScreen extends StatelessWidget {
                 Center(
                   child: Text(
                     'Quick',
-                    style: kTextStyle,
+                    style: KTitleTextStyle,
                   ),
                 ),
-                Center(child: Text('Countre', style: kTextStyle)),
+                Center(child: Text('Countre', style: KTitleTextStyle)),
                 Container(
                   padding: EdgeInsets.only(
                       top: 10.0, left: 60.0, right: 60.0, bottom: 30.0),
