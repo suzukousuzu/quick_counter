@@ -3,7 +3,11 @@ import 'package:quick_counter/constants.dart';
 import 'package:quick_counter/model/select_data.dart';
 
 class TestPatern extends StatelessWidget {
-  TestPatern({this.clearSecondNumber, this.clearSecondUpperCase, this.clearSecondChild });
+  TestPatern(
+      {this.clearSecondNumber,
+      this.clearSecondUpperCase,
+      this.clearSecondChild});
+
   String clearSecondNumber = "";
   String clearSecondUpperCase = "";
   String clearSecondChild = "";
@@ -17,40 +21,33 @@ class TestPatern extends StatelessWidget {
           TableRow(children: [
             Center(
                 child: Text(
-                  '1-30',
-                  style: kTopTextStyle,
-                )),
+              '1-30',
+              style: kTopTextStyle,
+            )),
             Center(
                 child: Text(
-                  'A-Z',
-                  style: kTopTextStyle,
-                )),
+              'A-Z',
+              style: kTopTextStyle,
+            )),
             Center(
                 child: Text(
-                  'a-z',
-                  style: kTopTextStyle,
-                )),
+              'a-z',
+              style: kTopTextStyle,
+            )),
           ]),
           TableRow(children: [
             Center(
                 child: Text(
-                  '$clearSecondNumber',
-                  style: kTopTextTimerStyle,
-                )),
+              '$clearSecondNumber',
+              style: kTopTextTimerStyle,
+            )),
             Center(
-                child: Text(
-                  "$clearSecondUpperCase",
-                  style: kTopTextTimerStyle
-                )),
-            Center(
-                child: Text(
-                  "$clearSecondChild",
-                  style: kTopTextTimerStyle
-                )),
+                child:
+                    Text("$clearSecondUpperCase", style: kTopTextTimerStyle)),
+            Center(child: Text("$clearSecondChild", style: kTopTextTimerStyle)),
           ])
         ],
       ),
     );
   }
 }
-

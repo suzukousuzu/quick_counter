@@ -22,26 +22,25 @@ class SelectData extends ChangeNotifier {
   void updateResult(String result) {
     if (selectedCard == Select.numberSelected) {
       clearTimeNumber = double.parse(result);
-      if(TopclearTimeNumber == "---") {
-        TopclearTimeNumber = clearTimeNumber.toString()+ "s";
-      } else if(double.parse(TopclearTimeNumber) > clearTimeNumber) {
+      if (TopclearTimeNumber == "---") {
+        TopclearTimeNumber = clearTimeNumber.toString() + "s";
+      } else if (double.parse(TopclearTimeNumber) > clearTimeNumber) {
         TopclearTimeNumber = clearTimeNumber.toString() + "s";
       }
     } else if (selectedCard == Select.uppercaseSelected) {
       clearTimeUppercase = double.parse(result);
-      if(TopclearTimeUppercase == "---") {
-        TopclearTimeUppercase = clearTimeUppercase.toString()+ "s";
-      }else if(double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
-        TopclearTimeUppercase = clearTimeUppercase.toString()+ "s";
+      if (TopclearTimeUppercase == "---") {
+        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
+      } else if (double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
+        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
       }
     } else if (selectedCard == Select.childSelected) {
       clearTimeChild = double.parse(result);
-      if(TopclearTimeChild == "---") {
-        TopclearTimeChild = clearTimeChild.toString()+ "s";
-      }else if(double.parse(TopclearTimeChild) > clearTimeChild) {
-        TopclearTimeChild = clearTimeChild.toString()+ "s";
+      if (TopclearTimeChild == "---") {
+        TopclearTimeChild = clearTimeChild.toString() + "s";
+      } else if (double.parse(TopclearTimeChild) > clearTimeChild) {
+        TopclearTimeChild = clearTimeChild.toString() + "s";
       }
-
     }
     notifyListeners();
   }
@@ -81,16 +80,19 @@ class SelectData extends ChangeNotifier {
           .collection('number')
           .orderBy('time', descending: true)
           .snapshots();
+      notifyListeners();
     } else if (selectedCard == Select.uppercaseSelected) {
       snapshots = _firestore
           .collection('UpperCase')
-          .orderBy('ti,e', descending: true)
+          .orderBy('time', descending: true)
           .snapshots();
+      notifyListeners();
     } else if (selectedCard == Select.childSelected) {
       snapshots = _firestore
           .collection('child')
           .orderBy('time', descending: true)
           .snapshots();
+      notifyListeners();
     }
 
     snapshots.listen((snapshot) {
@@ -98,14 +100,14 @@ class SelectData extends ChangeNotifier {
       final docs = snapshot.docs;
       for (var scores in docs) {
         final nickName = scores.data()['name'];
-        final tapScore = scores.data()['time'];
+        final time = scores.data()['time'];
         if (nickName != null) {
           if (nickName != "") {
             if (indexNumber <= 4) {
               indexNumber += 1;
               final scoreBunddle = ScoreBunddle(
                 nickName: nickName,
-                score: tapScore,
+                time: time,
                 indexNumber: indexNumber,
               );
               scoreBubbles.add(scoreBunddle);

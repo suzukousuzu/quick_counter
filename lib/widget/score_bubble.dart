@@ -3,10 +3,10 @@ import 'package:quick_counter/constants.dart';
 
 
 class ScoreBunddle extends StatelessWidget {
-  ScoreBunddle({this.nickName, this.score, this.indexNumber});
+  ScoreBunddle({this.nickName, this.time, this.indexNumber});
 
   final String nickName;
-  final int score;
+  final String time;
   final int indexNumber;
 
   @override
@@ -14,15 +14,15 @@ class ScoreBunddle extends StatelessWidget {
     return Row(
       children: [
         Text(
-          indexNumber.toString(),
+          indexNumber.toString()+".",
           style: leadersBoardText,
         ),
         Text(
-          nickName,
+          nickName + ":",
           style: leadersBoardText,
         ),
         Text(
-          score.toString(),
+          time,
           style: leadersBoardText,
         )
       ],

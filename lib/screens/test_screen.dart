@@ -96,11 +96,11 @@ class TestScreen extends StatelessWidget {
                   ),
                   (() {
                     if (model.isEnd) {
-                      return Text("GAMEOVER", style: kTextStyle);
+                      return Text("GAMEOVER", style: kTestTextStyle);
                     }else if(model.isComplete) {
-                      return Text("Congratulations!", style: kTextStyle);
+                      return Text("Congratulations!", style: kTestTextStyle);
                     } else {
-                      return Text(model.topText, style: kTextStyle);
+                      return Text(model.topText, style: kTestTextStyle);
                     }
                   })(),
                   SizedBox(

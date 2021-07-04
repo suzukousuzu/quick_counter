@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => SelectData(),
+      create: (context) => SelectData()..fetchName(),
       child: SafeArea(
           child: Scaffold(
         body: Container(
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           child: Consumer<SelectData>(builder: (context, model, child) {
             model.getName();
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //問題パターン表示部分
                 TestPatern(
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                 Center(child: Text('Countre', style: KTitleTextStyle)),
                 Container(
                   padding: EdgeInsets.only(
-                      top: 10.0, left: 60.0, right: 60.0, bottom: 30.0),
+                      top: 10.0, left: 60.0, right: 60.0, bottom: 10.0),
                   child: TextField(
                     controller: TextEditingController(text: model.nickName),
                     onChanged: (value) {
@@ -74,6 +74,7 @@ class HomeScreen extends StatelessWidget {
                       child: SelectedCard(
                         onPress: () {
                           model.selectNumber();
+                          model.fetchName();
                         },
                         text: ' 1-30',
                         width: model.selectedCard == Select.numberSelected
@@ -81,10 +82,12 @@ class HomeScreen extends StatelessWidget {
                             : kInActiveBorderWidth,
                       ),
                     ),
+                    SizedBox(width: 10.0,),
                     Expanded(
                       child: SelectedCard(
                         onPress: () {
                           model.selectUppercase();
+                          model.fetchName();
                         },
                         text: 'A-Z',
                         width: model.selectedCard == Select.uppercaseSelected
@@ -92,10 +95,12 @@ class HomeScreen extends StatelessWidget {
                             : kInActiveBorderWidth,
                       ),
                     ),
+                    SizedBox(width: 10.0,),
                     Expanded(
                       child: SelectedCard(
                         onPress: () {
                           model.selectChild();
+                          model.fetchName();
                         },
                         text: 'a-z',
                         width: model.selectedCard == Select.childSelected
@@ -106,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 10.0,
                 ),
                 SelectedCard(
                   onPress: () async {
