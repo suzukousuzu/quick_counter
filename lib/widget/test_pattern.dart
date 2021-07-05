@@ -37,14 +37,50 @@ class TestPatern extends StatelessWidget {
           ]),
           TableRow(children: [
             Center(
-                child: Text(
-              '$clearSecondNumber',
-              style: kTopTextTimerStyle,
-            )),
+              child: (() {
+                if (clearSecondNumber == "00.00") {
+                  return Text(
+                    '---',
+                    style: kTopTextTimerStyle,
+                  );
+                } else {
+                  return Text(
+                    clearSecondNumber + "s",
+                    style: kTopTextTimerStyle,
+                  );
+                }
+              })(),
+            ),
             Center(
-                child:
-                    Text("$clearSecondUpperCase", style: kTopTextTimerStyle)),
-            Center(child: Text("$clearSecondChild", style: kTopTextTimerStyle)),
+              child: (() {
+                if (clearSecondUpperCase == "00.00") {
+                  return Text(
+                    '---',
+                    style: kTopTextTimerStyle,
+                  );
+                } else {
+                  return Text(
+                    clearSecondUpperCase + "s",
+                    style: kTopTextTimerStyle,
+                  );
+                }
+              })(),
+            ),
+            Center(
+              child: (() {
+                if (clearSecondChild == "00.00") {
+                  return Text(
+                    '---',
+                    style: kTopTextTimerStyle,
+                  );
+                } else {
+                  return Text(
+                    clearSecondChild + "s",
+                    style: kTopTextTimerStyle,
+                  );
+                }
+              })(),
+            ),
           ])
         ],
       ),

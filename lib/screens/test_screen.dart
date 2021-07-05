@@ -76,26 +76,33 @@ class TestScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        model.timeDisplay,
-                        style: kTestTextStyle,
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            model.timeDisplay,
+                            style: kTestTextStyle,
+                          ),
+                        ),
                       ),
-                      SelectedCard(
-                        onPress: () {
-                          model.stopTimer();
-                          if (model.isComplete) {
-                            Navigator.pop(context, model.timeDisplay);
-                            model.addScore(nickName,selectedCard);
-                            return Future.value(false);
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                        text: 'QUIT',
-                        width: kInActiveBorderWidth,
+                      Expanded(
+                        child: SelectedCard(
+                          onPress: () {
+                            model.stopTimer();
+                            if (model.isComplete) {
+                              Navigator.pop(context, model.timeDisplay);
+                              model.addScore(nickName,selectedCard);
+                              return Future.value(false);
+                            } else {
+                              Navigator.pop(context);
+                            }
+                          },
+                          text: 'QUIT',
+                          width: kInActiveBorderWidth,
+                        ),
                       )
                     ],
                   ),
+                  SizedBox(height: 20.0,),
                   (() {
                     if (model.isEnd) {
                       return Text("GAMEOVER", style: kTestTextStyle);
@@ -105,54 +112,54 @@ class TestScreen extends StatelessWidget {
                       return Text(model.topText, style: kTestTextStyle);
                     }
                   })(),
-                  SizedBox(
-                    height: 80.0,
-                  ),
-                  GridView.count(
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 5,
-                    children: List.generate(randomList.length, (index) {
-                      return TestCard(
-                        onPress: () {
-                          if(model.isPushed) {
-                            if (selectedCard == Select.numberSelected) {
-                              model.updateCurrentNumber(randomList[index]);
-                              topText = model.topText;
-                            } else
-                            if (selectedCard == Select.uppercaseSelected) {
-                              if (randomList[index] == " ") {
-                                isBlank = true;
-                              } else {
-                                model.updateCurrentUppercase(randomList[index]);
+                  SizedBox(height: 20.0,),
+                  Expanded(
+                    child: GridView.count(
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 5,
+                      children: List.generate(randomList.length, (index) {
+                        return TestCard(
+                          onPress: () {
+                            if(model.isPushed) {
+                              if (selectedCard == Select.numberSelected) {
+                                model.updateCurrentNumber(randomList[index]);
                                 topText = model.topText;
+                              } else
+                              if (selectedCard == Select.uppercaseSelected) {
+                                if (randomList[index] == " ") {
+                                  isBlank = true;
+                                } else {
+                                  model.updateCurrentUppercase(randomList[index]);
+                                  topText = model.topText;
+                                }
+                              } else if (selectedCard == Select.childSelected) {
+                                if (randomList[index] == " ") {
+                                  isBlank = true;
+                                } else {
+                                  model.updateCurrentChild(randomList[index]);
+                                  topText = model.topText;
+                                }
                               }
-                            } else if (selectedCard == Select.childSelected) {
-                              if (randomList[index] == " ") {
-                                isBlank = true;
-                              } else {
-                                model.updateCurrentChild(randomList[index]);
-                                topText = model.topText;
-                              }
-                            }
-                              if (model.isEnd == true ) {
-                                soundpool.play(soundIdInCorrect);
-                                model.stopTimer();
-                              } else if (model.isEnd == false && isBlank == false && model.isComplete == false || randomList[index] == "30" || randomList[index] == "Z" || randomList[index] == "z") {
-                                soundpool.play(soundIdCorrect);
-                              }
+                                if (model.isEnd == true ) {
+                                  soundpool.play(soundIdInCorrect);
+                                  model.stopTimer();
+                                } else if (model.isEnd == false && isBlank == false && model.isComplete == false || randomList[index] == "30" || randomList[index] == "Z" || randomList[index] == "z") {
+                                  soundpool.play(soundIdCorrect);
+                                }
 
-                            //タイマーを止める処理
-                            if (model.isComplete == true || model.isEnd == true) {
-                              model.stopTimer();
+                              //タイマーを止める処理
+                              if (model.isComplete == true || model.isEnd == true) {
+                                model.stopTimer();
+                              }
                             }
-                          }
-                        },
-                        number: randomList[index].toString(),
-                      );
-                    }),
+                          },
+                          number: randomList[index].toString(),
+                        );
+                      }),
+                    ),
                   )
                 ],
               );

@@ -25,6 +25,14 @@ class HomeScreen extends StatelessWidget {
           )),
           child: Consumer<SelectData>(builder: (context, model, child) {
             model.getName();
+            model.fetchScore();
+            final _controller = TextEditingController.fromValue(
+              TextEditingValue(
+                text: model.nickName ?? "",
+                selection: TextSelection.collapsed(
+                    offset: model.nickName?.length ?? 0),
+              ),
+            );
             return Column(
               //crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -45,11 +53,12 @@ class HomeScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: 10.0, left: 60.0, right: 60.0, bottom: 10.0),
                   child: TextField(
-                    controller: TextEditingController(text: model.nickName),
+                    controller: _controller,
                     onChanged: (value) {
                       nickName = value;
                       model.nickName = value;
                       model.setName(nickName);
+                      model.updateDisplay();
                     },
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -71,63 +80,101 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                      child: SelectedCard(
-                        onPress: () {
-                          model.selectNumber();
-                          model.fetchName();
-                        },
-                        text: ' 1-30',
-                        width: model.selectedCard == Select.numberSelected
-                            ? kActiveBorderWidth
-                            : kInActiveBorderWidth,
-                      ),
+                    (() {
+                      if (model.buttonDisplay == true) {
+                        return Expanded(
+                          child: SelectedCard(
+                            onPress: () {
+                              model.selectNumber();
+                              model.fetchName();
+                            },
+                            text: '1-30',
+                            width: model.selectedCard == Select.numberSelected
+                                ? kActiveBorderWidth
+                                : kInActiveBorderWidth,
+                          ),
+                        );
+                      } else {
+                        return Expanded(child: Text(''));
+                      }
+                    })(),
+                    SizedBox(
+                      width: 10.0,
                     ),
-                    SizedBox(width: 10.0,),
-                    Expanded(
-                      child: SelectedCard(
-                        onPress: () {
-                          model.selectUppercase();
-                          model.fetchName();
-                        },
-                        text: 'A-Z',
-                        width: model.selectedCard == Select.uppercaseSelected
-                            ? kActiveBorderWidth
-                            : kInActiveBorderWidth,
-                      ),
+                    (() {
+                      if (model.buttonDisplay == true) {
+                        return Expanded(
+                          child: SelectedCard(
+                            onPress: () {
+                              model.selectUppercase();
+                              model.fetchName();
+                            },
+                            text: 'A-Z',
+                            width:
+                                model.selectedCard == Select.uppercaseSelected
+                                    ? kActiveBorderWidth
+                                    : kInActiveBorderWidth,
+                          ),
+                        );
+                      } else {
+                        return Expanded(child: Text(''));
+                      }
+                    })(),
+                    SizedBox(
+                      width: 10.0,
                     ),
-                    SizedBox(width: 10.0,),
-                    Expanded(
-                      child: SelectedCard(
-                        onPress: () {
-                          model.selectChild();
-                          model.fetchName();
-                        },
-                        text: 'a-z',
-                        width: model.selectedCard == Select.childSelected
-                            ? kActiveBorderWidth
-                            : kInActiveBorderWidth,
-                      ),
-                    )
+                    (() {
+                      if (model.buttonDisplay == true) {
+                        return Expanded(
+                          child: SelectedCard(
+                            onPress: () {
+                              model.selectChild();
+                              model.fetchName();
+                            },
+                            text: 'a-z',
+                            width: model.selectedCard == Select.childSelected
+                                ? kActiveBorderWidth
+                                : kInActiveBorderWidth,
+                          ),
+                        );
+                      } else {
+                        return Expanded(child: Text(''));
+                      }
+                    })(),
                   ],
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
-                SelectedCard(
-                  onPress: () async {
-                    result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                TestScreen(selectedCard: model.selectedCard,nickName:  model.nickName,)));
-                    model.updateResult(result);
-                  },
-                  text: 'PLAY!',
-                  width: kInActiveBorderWidth,
-                ),
+
+                (() {
+                  if (model.buttonDisplay == true) {
+                    return Expanded(
+                      child: Container(
+                        height: 50.0,
+                        child: SelectedCard(
+                          onPress: () async {
+                            result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TestScreen(
+                                          selectedCard: model.selectedCard,
+                                          nickName: model.nickName,
+                                        )));
+                            //model.updateResult(result);
+                          },
+                          text: 'PLAY!',
+                          width: kInActiveBorderWidth,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Expanded(child: Text(''));
+                  }
+                })(),
+
                 SizedBox(
-                  height: 70.0,
+                  height: 130.0,
                 ),
                 Row(
                   children: [

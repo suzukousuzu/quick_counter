@@ -41,6 +41,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
+flutter_native_splash:
+  color: "4DD0E1"
+  image: "images/icon_161011_64.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -18,32 +18,33 @@ class SelectData extends ChangeNotifier {
   String TopclearTimeChild = "---";
   String nickName;
   int indexNumber = 0;
+  bool buttonDisplay = true;
 
-  void updateResult(String result) {
-    if (selectedCard == Select.numberSelected) {
-      clearTimeNumber = double.parse(result);
-      if (TopclearTimeNumber == "---") {
-        TopclearTimeNumber = clearTimeNumber.toString() + "s";
-      } else if (double.parse(TopclearTimeNumber) > clearTimeNumber) {
-        TopclearTimeNumber = clearTimeNumber.toString() + "s";
-      }
-    } else if (selectedCard == Select.uppercaseSelected) {
-      clearTimeUppercase = double.parse(result);
-      if (TopclearTimeUppercase == "---") {
-        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
-      } else if (double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
-        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
-      }
-    } else if (selectedCard == Select.childSelected) {
-      clearTimeChild = double.parse(result);
-      if (TopclearTimeChild == "---") {
-        TopclearTimeChild = clearTimeChild.toString() + "s";
-      } else if (double.parse(TopclearTimeChild) > clearTimeChild) {
-        TopclearTimeChild = clearTimeChild.toString() + "s";
-      }
-    }
-    notifyListeners();
-  }
+  // void updateResult(String result) {
+  //   if (selectedCard == Select.numberSelected) {
+  //     clearTimeNumber = double.parse(result);
+  //     if (TopclearTimeNumber == "---") {
+  //       TopclearTimeNumber = clearTimeNumber.toString() + "s";
+  //     } else if (double.parse(TopclearTimeNumber) > clearTimeNumber) {
+  //       TopclearTimeNumber = clearTimeNumber.toString() + "s";
+  //     }
+  //   } else if (selectedCard == Select.uppercaseSelected) {
+  //     clearTimeUppercase = double.parse(result);
+  //     if (TopclearTimeUppercase == "---") {
+  //       TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
+  //     } else if (double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
+  //       TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
+  //     }
+  //   } else if (selectedCard == Select.childSelected) {
+  //     clearTimeChild = double.parse(result);
+  //     if (TopclearTimeChild == "---") {
+  //       TopclearTimeChild = clearTimeChild.toString() + "s";
+  //     } else if (double.parse(TopclearTimeChild) > clearTimeChild) {
+  //       TopclearTimeChild = clearTimeChild.toString() + "s";
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
 
   void selectNumber() {
     selectedCard = Select.numberSelected;
@@ -185,5 +186,15 @@ class SelectData extends ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  void updateDisplay() {
+    this.nickName = nickName;
+    if (this.nickName == "") {
+      buttonDisplay = false;
+    } else {
+      buttonDisplay = true;
+    }
+    notifyListeners();
   }
 }
