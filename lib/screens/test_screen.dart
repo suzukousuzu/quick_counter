@@ -10,6 +10,7 @@ import 'package:quick_counter/alphabet_data.dart';
 import 'package:soundpool/soundpool.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:quick_counter/widget/test_tile.dart';
 
 class TestScreen extends StatelessWidget {
   TestScreen({this.selectedCard,this.nickName});
@@ -90,7 +91,8 @@ class TestScreen extends StatelessWidget {
                             model.stopTimer();
                             if (model.isComplete) {
                               Navigator.pop(context, model.timeDisplay);
-                              model.addScore(nickName,selectedCard);
+                              model.updateScore(nickName,selectedCard);
+                              model.isUpdateScore ? null : model.addScore(nickName,selectedCard);
                               return Future.value(false);
                             } else {
                               Navigator.pop(context);
@@ -121,7 +123,7 @@ class TestScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 5,
                       children: List.generate(randomList.length, (index) {
-                        return TestCard(
+                        return TestTile(
                           onPress: () {
                             if(model.isPushed) {
                               if (selectedCard == Select.numberSelected) {
@@ -157,6 +159,8 @@ class TestScreen extends StatelessWidget {
                             }
                           },
                           number: randomList[index].toString(),
+                          isEnd: model.isEnd,
+                          isComplete: model.isComplete,
                         );
                       }),
                     ),

@@ -79,19 +79,19 @@ class SelectData extends ChangeNotifier {
     if (selectedCard == Select.numberSelected) {
       snapshots = _firestore
           .collection('number')
-          .orderBy('time', descending: true)
+          .orderBy('time', descending: false)
           .snapshots();
       notifyListeners();
     } else if (selectedCard == Select.uppercaseSelected) {
       snapshots = _firestore
           .collection('UpperCase')
-          .orderBy('time', descending: true)
+          .orderBy('time', descending: false)
           .snapshots();
       notifyListeners();
     } else if (selectedCard == Select.childSelected) {
       snapshots = _firestore
           .collection('child')
-          .orderBy('time', descending: true)
+          .orderBy('time', descending: false)
           .snapshots();
       notifyListeners();
     }
@@ -111,16 +111,17 @@ class SelectData extends ChangeNotifier {
                 time: time,
                 indexNumber: indexNumber,
               );
+
               scoreBubbles.add(scoreBunddle);
+              notifyListeners();
             }
           }
         }
       }
     });
-    notifyListeners();
   }
 
-  void fetchScore() {
+   void fetchScore() {
     Stream<QuerySnapshot> number;
     Stream<QuerySnapshot> upperCase;
     Stream<QuerySnapshot> child;
@@ -130,14 +131,13 @@ class SelectData extends ChangeNotifier {
         .snapshots();
 
     number.listen((snapshot) {
-
       TopclearTimeNumber = "00.00";
       final docs = snapshot.docs;
       for (var scores in docs) {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
           double kclearTimeNumber = double.parse(scores.data()['time']);
-          if (kclearTimeNumber > double.parse(TopclearTimeNumber)) {
+          if (kclearTimeNumber < double.parse(TopclearTimeNumber) || TopclearTimeNumber == "00.00") {
             TopclearTimeNumber = kclearTimeNumber.toString();
 
           }
@@ -158,7 +158,7 @@ class SelectData extends ChangeNotifier {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
           double kTopclearTimeUppercase = double.parse(scores.data()['time']);
-          if (kTopclearTimeUppercase > double.parse(TopclearTimeUppercase)) {
+          if (kTopclearTimeUppercase > double.parse(TopclearTimeUppercase) || TopclearTimeUppercase == "00.00" ) {
             TopclearTimeUppercase = kTopclearTimeUppercase.toString();
           }
         }
@@ -178,7 +178,7 @@ class SelectData extends ChangeNotifier {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
           double kTopclearTimeChild = double.parse(scores.data()['time']);
-          if (kTopclearTimeChild > double.parse(TopclearTimeChild)) {
+          if (kTopclearTimeChild > double.parse(TopclearTimeChild)|| TopclearTimeChild == "00.00") {
             TopclearTimeChild = kTopclearTimeChild.toString();
           }
 

@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:quick_counter/model/select_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class CounterModel extends ChangeNotifier {
   final _firestore = FirebaseFirestore.instance;
   String topText;
   bool isEnd = false;
   bool isComplete = false;
   bool isPushed = true;
+  bool isUpdateScore = false;
 
   String timeDisplay = '00.00';
   var swatch = Stopwatch();
@@ -82,8 +82,7 @@ class CounterModel extends ChangeNotifier {
       } else if (testText == "Z") {
         isComplete = true;
       }
-    }
-    else if (topText != testText && isComplete == false) {
+    } else if (topText != testText && isComplete == false) {
       isEnd = true;
     }
     notifyListeners();
@@ -144,8 +143,7 @@ class CounterModel extends ChangeNotifier {
       } else if (testText == "z") {
         isComplete = true;
       }
-    }
-    else if (topText != testText && isComplete == false){
+    } else if (topText != testText && isComplete == false) {
       isEnd = true;
     }
     notifyListeners();
@@ -172,7 +170,7 @@ class CounterModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void stopTimer()  {
+  void stopTimer() {
     swatch.stop();
     notifyListeners();
   }
@@ -194,6 +192,87 @@ class CounterModel extends ChangeNotifier {
           .add({'name': nickName, 'time': timeDisplay});
       notifyListeners();
     }
+  }
 
+  void updateScore(String name, Select select) {
+    Stream<QuerySnapshot> number;
+    Stream<QuerySnapshot> upperCase;
+    Stream<QuerySnapshot> child;
+
+    if (select == Select.numberSelected) {
+      number = _firestore
+          .collection('number')
+          .orderBy('time', descending: true)
+          .snapshots();
+
+      number.listen((snapshot) {
+        final docs = snapshot.docs;
+        for (var scores in docs) {
+          final nickName = scores.data()['name'];
+          final time = scores.data()['time'];
+          final documentId = scores.id;
+          if (nickName == name) {
+            if (int.parse(time) > int.parse(timeDisplay)) {
+              FirebaseFirestore.instance
+                  .collection('number')
+                  .doc(documentId)
+                  .update({"time": timeDisplay});
+
+              isUpdateScore = true;
+            }
+          }
+        }
+      });
+    }
+
+    if (select == Select.uppercaseSelected) {
+      upperCase = _firestore
+          .collection('UpperCase')
+          .orderBy('time', descending: true)
+          .snapshots();
+
+      upperCase.listen((snapshot) {
+        final docs = snapshot.docs;
+        for (var scores in docs) {
+          final nickName = scores.data()['name'];
+          final time = scores.data()['time'];
+          final documentId = scores.id;
+          if (nickName == name) {
+            if (int.parse(time) > int.parse(timeDisplay)) {
+              FirebaseFirestore.instance
+                  .collection('UpperCase')
+                  .doc(documentId)
+                  .update({"time": timeDisplay});
+              isUpdateScore = true;
+            }
+          }
+        }
+      });
+    }
+
+    if (select == Select.childSelected) {
+      child = _firestore
+          .collection('child')
+          .orderBy('time', descending: true)
+          .snapshots();
+
+      child.listen((snapshot) {
+        final docs = snapshot.docs;
+        for (var scores in docs) {
+          final nickName = scores.data()['name'];
+          final time = scores.data()['time'];
+          final documentId = scores.id;
+          if (nickName == name) {
+            if (int.parse(time) > int.parse(timeDisplay)) {
+              FirebaseFirestore.instance
+                  .collection('child')
+                  .doc(documentId)
+                  .update({"time": timeDisplay});
+              isUpdateScore = true;
+            }
+          }
+        }
+      });
+    }
   }
 }
