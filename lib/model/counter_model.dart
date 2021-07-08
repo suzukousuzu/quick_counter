@@ -9,7 +9,6 @@ class CounterModel extends ChangeNotifier {
   bool isEnd = false;
   bool isComplete = false;
   bool isPushed = true;
-  bool isUpdateScore = false;
 
   String timeDisplay = '00.00';
   var swatch = Stopwatch();
@@ -212,13 +211,13 @@ class CounterModel extends ChangeNotifier {
           final time = scores.data()['time'];
           final documentId = scores.id;
           if (nickName == name) {
-            if (int.parse(time) > int.parse(timeDisplay)) {
+            if (time > int.parse(timeDisplay)) {
               FirebaseFirestore.instance
                   .collection('number')
                   .doc(documentId)
                   .update({"time": timeDisplay});
 
-              isUpdateScore = true;
+              notifyListeners();
             }
           }
         }
@@ -243,7 +242,7 @@ class CounterModel extends ChangeNotifier {
                   .collection('UpperCase')
                   .doc(documentId)
                   .update({"time": timeDisplay});
-              isUpdateScore = true;
+              notifyListeners();
             }
           }
         }
@@ -268,7 +267,7 @@ class CounterModel extends ChangeNotifier {
                   .collection('child')
                   .doc(documentId)
                   .update({"time": timeDisplay});
-              isUpdateScore = true;
+              notifyListeners();
             }
           }
         }

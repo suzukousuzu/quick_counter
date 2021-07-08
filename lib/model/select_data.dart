@@ -19,6 +19,7 @@ class SelectData extends ChangeNotifier {
   String nickName;
   int indexNumber = 0;
   bool buttonDisplay = true;
+  bool isUpdate = false;
 
   // void updateResult(String result) {
   //   if (selectedCard == Select.numberSelected) {
@@ -125,6 +126,7 @@ class SelectData extends ChangeNotifier {
     Stream<QuerySnapshot> number;
     Stream<QuerySnapshot> upperCase;
     Stream<QuerySnapshot> child;
+    isUpdate = false;
     number = _firestore
         .collection('number')
         .orderBy('time', descending: true)
@@ -136,6 +138,7 @@ class SelectData extends ChangeNotifier {
       for (var scores in docs) {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
+          isUpdate = true;
           double kclearTimeNumber = double.parse(scores.data()['time']);
           if (kclearTimeNumber < double.parse(TopclearTimeNumber) || TopclearTimeNumber == "00.00") {
             TopclearTimeNumber = kclearTimeNumber.toString();
@@ -157,6 +160,7 @@ class SelectData extends ChangeNotifier {
       for (var scores in docs) {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
+          isUpdate = true;
           double kTopclearTimeUppercase = double.parse(scores.data()['time']);
           if (kTopclearTimeUppercase > double.parse(TopclearTimeUppercase) || TopclearTimeUppercase == "00.00" ) {
             TopclearTimeUppercase = kTopclearTimeUppercase.toString();
@@ -177,6 +181,7 @@ class SelectData extends ChangeNotifier {
       for (var scores in docs) {
         final nickName = scores.data()['name'];
         if (this.nickName == nickName) {
+          isUpdate = true;
           double kTopclearTimeChild = double.parse(scores.data()['time']);
           if (kTopclearTimeChild > double.parse(TopclearTimeChild)|| TopclearTimeChild == "00.00") {
             TopclearTimeChild = kTopclearTimeChild.toString();

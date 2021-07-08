@@ -160,6 +160,7 @@ class HomeScreen extends StatelessWidget {
                                     builder: (context) => TestScreen(
                                           selectedCard: model.selectedCard,
                                           nickName: model.nickName,
+                                          isUpdate: model.isUpdate,
                                         )));
                             //model.updateResult(result);
                           },

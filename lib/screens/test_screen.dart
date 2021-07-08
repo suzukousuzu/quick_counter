@@ -13,10 +13,11 @@ import 'package:flutter/services.dart';
 import 'package:quick_counter/widget/test_tile.dart';
 
 class TestScreen extends StatelessWidget {
-  TestScreen({this.selectedCard,this.nickName});
+  TestScreen({this.selectedCard,this.nickName,this.isUpdate});
 
   final Select selectedCard;
   final String nickName;
+  final bool isUpdate;
   List randomList;
 
   String topText;
@@ -91,8 +92,7 @@ class TestScreen extends StatelessWidget {
                             model.stopTimer();
                             if (model.isComplete) {
                               Navigator.pop(context, model.timeDisplay);
-                              model.updateScore(nickName,selectedCard);
-                              model.isUpdateScore ? null : model.addScore(nickName,selectedCard);
+                             isUpdate ?  model.updateScore(nickName,selectedCard) : model.addScore(nickName,selectedCard);
                               return Future.value(false);
                             } else {
                               Navigator.pop(context);
