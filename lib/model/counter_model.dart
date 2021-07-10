@@ -179,17 +179,14 @@ class CounterModel extends ChangeNotifier {
       await FirebaseFirestore.instance
           .collection('number')
           .add({'name': nickName, 'time': timeDisplay});
-      notifyListeners();
     } else if (select == Select.uppercaseSelected) {
       await FirebaseFirestore.instance
           .collection('UpperCase')
           .add({'name': nickName, 'time': timeDisplay});
-      notifyListeners();
     } else if (select == Select.childSelected) {
       await FirebaseFirestore.instance
           .collection('child')
           .add({'name': nickName, 'time': timeDisplay});
-      notifyListeners();
     }
   }
 
@@ -197,6 +194,8 @@ class CounterModel extends ChangeNotifier {
     Stream<QuerySnapshot> number;
     Stream<QuerySnapshot> upperCase;
     Stream<QuerySnapshot> child;
+
+
 
     if (select == Select.numberSelected) {
       number = _firestore
@@ -211,7 +210,7 @@ class CounterModel extends ChangeNotifier {
           final time = scores.data()['time'];
           final documentId = scores.id;
           if (nickName == name) {
-            if (time > int.parse(timeDisplay)) {
+            if (double.parse(time) > double.parse(timeDisplay)) {
               FirebaseFirestore.instance
                   .collection('number')
                   .doc(documentId)
@@ -237,7 +236,7 @@ class CounterModel extends ChangeNotifier {
           final time = scores.data()['time'];
           final documentId = scores.id;
           if (nickName == name) {
-            if (int.parse(time) > int.parse(timeDisplay)) {
+            if (double.parse(time) > double.parse(timeDisplay)) {
               FirebaseFirestore.instance
                   .collection('UpperCase')
                   .doc(documentId)
@@ -262,7 +261,7 @@ class CounterModel extends ChangeNotifier {
           final time = scores.data()['time'];
           final documentId = scores.id;
           if (nickName == name) {
-            if (int.parse(time) > int.parse(timeDisplay)) {
+            if (double.parse(time) > double.parse(timeDisplay)) {
               FirebaseFirestore.instance
                   .collection('child')
                   .doc(documentId)

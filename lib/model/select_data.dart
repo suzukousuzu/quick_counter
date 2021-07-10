@@ -21,31 +21,31 @@ class SelectData extends ChangeNotifier {
   bool buttonDisplay = true;
   bool isUpdate = false;
 
-  // void updateResult(String result) {
-  //   if (selectedCard == Select.numberSelected) {
-  //     clearTimeNumber = double.parse(result);
-  //     if (TopclearTimeNumber == "---") {
-  //       TopclearTimeNumber = clearTimeNumber.toString() + "s";
-  //     } else if (double.parse(TopclearTimeNumber) > clearTimeNumber) {
-  //       TopclearTimeNumber = clearTimeNumber.toString() + "s";
-  //     }
-  //   } else if (selectedCard == Select.uppercaseSelected) {
-  //     clearTimeUppercase = double.parse(result);
-  //     if (TopclearTimeUppercase == "---") {
-  //       TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
-  //     } else if (double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
-  //       TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
-  //     }
-  //   } else if (selectedCard == Select.childSelected) {
-  //     clearTimeChild = double.parse(result);
-  //     if (TopclearTimeChild == "---") {
-  //       TopclearTimeChild = clearTimeChild.toString() + "s";
-  //     } else if (double.parse(TopclearTimeChild) > clearTimeChild) {
-  //       TopclearTimeChild = clearTimeChild.toString() + "s";
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
+  void updateResult(String result) {
+    if (selectedCard == Select.numberSelected) {
+      clearTimeNumber = double.parse(result);
+      if (TopclearTimeNumber == "00.00") {
+        TopclearTimeNumber = clearTimeNumber.toString() + "s";
+      } else if (double.parse(TopclearTimeNumber) > clearTimeNumber) {
+        TopclearTimeNumber = clearTimeNumber.toString() + "s";
+      }
+    } else if (selectedCard == Select.uppercaseSelected) {
+      clearTimeUppercase = double.parse(result);
+      if (TopclearTimeUppercase == "00.00") {
+        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
+      } else if (double.parse(TopclearTimeUppercase) > clearTimeUppercase) {
+        TopclearTimeUppercase = clearTimeUppercase.toString() + "s";
+      }
+    } else if (selectedCard == Select.childSelected) {
+      clearTimeChild = double.parse(result);
+      if (TopclearTimeChild == "00.00") {
+        TopclearTimeChild = clearTimeChild.toString() + "s";
+      } else if (double.parse(TopclearTimeChild) > clearTimeChild) {
+        TopclearTimeChild = clearTimeChild.toString() + "s";
+      }
+    }
+    notifyListeners();
+  }
 
   void selectNumber() {
     selectedCard = Select.numberSelected;

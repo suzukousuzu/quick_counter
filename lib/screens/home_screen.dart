@@ -162,7 +162,8 @@ class HomeScreen extends StatelessWidget {
                                           nickName: model.nickName,
                                           isUpdate: model.isUpdate,
                                         )));
-                            //model.updateResult(result);
+                            model.updateResult(result);
+                            model.fetchScore();
                           },
                           text: 'PLAY!',
                           width: kInActiveBorderWidth,
